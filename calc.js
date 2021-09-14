@@ -1,6 +1,24 @@
 let memory = 0;
-let display = '0';
+let display = '80085';
+
 const buttons = document.querySelectorAll('button');
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        //Simple animation trigger on click.
+        button.classList.add('button-click');
+        setTimeout(function(){button.classList.remove('button-click')},300);
+
+        if(button.id == 'clear') clear();
+        else if(button.id == 'ac') allClear();
+        else if(button.id == 'off') turnOff();
+        else if(button.id == 'neg') negative();
+        else if(button.id == 'percent') percent();
+
+        else if(button.id == 'mrc') memRecall();
+        else if(button.id == 'mplus') memPlus();
+        else if(button.id == 'mminus') memMinus();
+    });
+});
 
 function updateDisplay() {
     const displayScreen = document.querySelector('#display');
@@ -9,6 +27,8 @@ function updateDisplay() {
 }
 
 updateDisplay();
+
+
 
 function equals(){
 
@@ -35,22 +55,25 @@ function divide(num1, num2){
 
 function percent(){
     display = (parseFloat(display)*0.01).toString();
+    updateDisplay();
 }
 
 function memRecall(){
-    updateDisplay(memory);
+    display = memory.toString();
+    updateDisplay();
 }
 
-function memPlus(num){
-    memory += num;
+function memPlus(){
+    memory += parseFloat(display);
 }
 
-function memMinus(num){
-    memory -= num;
+function memMinus(){
+    memory -= parseFloat(display);
 }
 
-function plusMinus() {
+function negative() {
     display = (parseFloat(display)*-1).toString();
+    updateDisplay();
 }
 
 function clear() {
