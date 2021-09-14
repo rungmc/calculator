@@ -6,9 +6,10 @@ To create.
 
 ## To-Do
 
-- [ ] Add display
-- [ ] Add number grid (with `.` and `=` keys to round out a 3x4)
-- [ ] Add basic operators (add, subtract, multiply, divide)
+- [x] Add display
+- [x] Add number button grid (with `.` and `=` keys to round out a 3x4)
+- [x] Add basic operator buttons (add, subtract, multiply, divide)
+- [ ] Program operators
 - [ ] PEMDAS
 - [ ] MRC/M+/M- and added goodies
-- [ ] Final look & feel formatting (80s inspired theming, "Calcio")
+- [x] Final look & feel formatting (80s inspired theming, "Calcio")
