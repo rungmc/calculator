@@ -2,7 +2,7 @@
 
 ## Goal
 
-To create.
+To create a functioning old-school-style calculator using combined knowledge of HTML/CSS/JS.
 
 ## To-Do
 

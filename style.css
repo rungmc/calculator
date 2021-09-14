@@ -7,13 +7,14 @@ body {
     font-family: 'Oswald', sans-serif;
     font-size: 16pt;
     padding: 30px;
+    background-color: #555;
 }
 
 #calculator {
-    padding: 5px;
     display: flex;
     margin: auto;
     width: 60vh;
+    padding: 5px;
     flex-direction: column;
     align-items: center;
     background-color: lightgray;
@@ -32,6 +33,7 @@ body {
         "c      four    five    six     minus"
         "ac     one     two     three   plus"
         "off    zero    dec     eq      plus";
+    border-top: 1px solid gray;
 }
 
 #marketing {
@@ -48,18 +50,20 @@ body {
 }
 
 #brand {
-    width: 20%;
+    width: 25%;
 }
 
 #solar {
-    width: 60%;
-    height: 80%;
+    width: 50%;
+    height: 90%;
     margin: 10px;
-    background-color: black;
+    background-color: #6e6a5f;
+    border: 1px solid darkgray;
+    border-radius: 10px;
 }
 
 #product {
-    width: 20%;
+    width: 25%;
     font-size: .8em;
 }
 
