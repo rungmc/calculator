@@ -1,7 +1,7 @@
 let memory = 0;
 let display = '0';
-let oldDisplay = '';
-let operand = '';
+let storedDisplay = '';
+let storedOperand = '';
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
@@ -22,13 +22,12 @@ buttons.forEach(button => {
             else if(button.id == 'mminus') memMinus();
         }
         else if(button.classList.contains('operand')){
-            operand = button.innerText;
-            oldDisplay = display;
-            display = '';
+            let operand = button.id;
+            doMath(operand);
         }
         //Prevents user entry of double decimals.
         else if(button.id !== 'dec' || !display.includes('.')){
-            if (display == '0') display = '';
+            if(display == '0' && button.id !== 'dec') display = '';
             display += button.innerText;
             updateDisplay();
         }
@@ -38,18 +37,45 @@ buttons.forEach(button => {
 function updateDisplay() {
     const displayScreen = document.querySelector('#display');
     
-    //Rounds if scientific notation kicks in.
-    if (display.includes('e')) {
-        display = display.substring(0,5)
-                + display.substring(display.indexOf('e'));
-        displayScreen.innerText = display;
-    }
-    //Trailing ellipses if number is too long for display.
-    else if(display.length > 10) displayScreen.innerText = display.substring(0,9)+'...';
+    //Scientific notation if number is too long for display.
+    if(display.length > 10) displayScreen.innerText = parseFloat(display).toExponential(6);
     else displayScreen.innerText = display;
 }
 
 updateDisplay();
+
+function doMath(operand = ''){
+    //Prevent from storing equals signs, want that to immediately fire.
+    if(!storedOperand && operand !== 'eq'){
+        storedOperand = operand;
+        storedDisplay = display;
+        display = '';
+    }
+    else{
+        if(storedOperand == 'plus'){
+            storedDisplay = (parseFloat(storedDisplay) + parseFloat(display)).toString();
+        }
+        else if(storedOperand == 'minus'){
+            storedDisplay = (parseFloat(storedDisplay) - parseFloat(display)).toString();
+        }
+        else if(storedOperand == 'times'){
+            storedDisplay = (parseFloat(storedDisplay) * parseFloat(display)).toString();
+        }
+        else if(storedOperand == 'divide'){
+            storedDisplay = (parseFloat(storedDisplay) / parseFloat(display)).toString();
+        }
+
+        display = storedDisplay;
+        updateDisplay();
+        if(operand == 'eq'){
+            storedOperand = '';
+        }
+        else{
+            storedOperand = operand;
+            display = '';
+        }
+    }
+}
 
 function percent(){
     display = (parseFloat(display)*0.01).toString();
@@ -75,6 +101,8 @@ function negative() {
 }
 
 function clear() {
+    storedDisplay = '';
+    storedOperand = '';
     display = '0';
     updateDisplay();
 }
@@ -85,7 +113,7 @@ function allClear() {
 }
 
 function turnOff() {
-    memory = 0;
+    allClear();
     display = '';
     updateDisplay();
 }

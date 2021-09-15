@@ -34,6 +34,7 @@ body {
         "ac     one     two     three   plus"
         "off    zero    dec     eq      plus";
     border-top: 1px solid gray;
+    padding-top: 5px;
 }
 
 #marketing {
