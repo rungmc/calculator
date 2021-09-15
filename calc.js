@@ -22,8 +22,7 @@ buttons.forEach(button => {
             else if(button.id == 'mminus') memMinus();
         }
         else if(button.classList.contains('operand')){
-            let operand = button.id;
-            doMath(operand);
+            doMath(button.id);
         }
         //Prevents user entry of double decimals.
         else if(button.id !== 'dec' || !display.includes('.')){
@@ -36,10 +35,21 @@ buttons.forEach(button => {
 
 function updateDisplay() {
     const displayScreen = document.querySelector('#display');
-    
-    //Scientific notation if number is too long for display.
-    if(display.length > 10) displayScreen.innerText = parseFloat(display).toExponential(6);
-    else displayScreen.innerText = display;
+    let formattedDisplay = display;
+
+    //Trims trailing zeroes after decimal for readability.
+    if(formattedDisplay.includes('.')){
+        while(formattedDisplay.endsWith('0') || formattedDisplay.endsWith('.'))
+            formattedDisplay = formattedDisplay.slice(0, -1);
+    }
+
+    //Truncates decimals or uses scientific notation if number is too long for display.
+    if(formattedDisplay.length > 10){
+        if (parseFloat(formattedDisplay) < 10000 && parseFloat(formattedDisplay) > 0.0001)
+            formattedDisplay = formattedDisplay.substring(0,9) + '...';
+        else formattedDisplay = (parseFloat(formattedDisplay).toExponential(6)).toString();
+    }
+    displayScreen.innerText = formattedDisplay;
 }
 
 updateDisplay();
@@ -62,10 +72,19 @@ function doMath(operand = ''){
             storedDisplay = (parseFloat(storedDisplay) * parseFloat(display)).toString();
         }
         else if(storedOperand == 'divide'){
-            storedDisplay = (parseFloat(storedDisplay) / parseFloat(display)).toString();
+            //Obligate snarky divide by 0 error.
+            if(parseFloat(display) == 0){
+                allClear();
+                display = 'D00M';
+                updateDisplay();
+                display = '0';
+                return;
+            }
+            else storedDisplay = (parseFloat(storedDisplay) / parseFloat(display)).toString();
         }
 
         display = storedDisplay;
+        if(!display) display ='0';
         updateDisplay();
         if(operand == 'eq'){
             storedOperand = '';
