@@ -2,33 +2,46 @@ let memory = 0;
 let display = '0';
 let storedDisplay = '';
 let storedOperand = '';
+let operandEnabled = true;
+let displayConcatAllowed = true;
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         //Simple animation trigger on click.
         button.classList.add('button-click');
-        setTimeout(function(){button.classList.remove('button-click')},300);
+        setTimeout(function(){button.classList.remove('button-click')},100);
 
         if(button.classList.contains('operator')){
             if(button.id == 'clear') clear();
             else if(button.id == 'ac') allClear();
             else if(button.id == 'off') turnOff();
+
+            else if(!operandEnabled) return;
             else if(button.id == 'neg') negative();
             else if(button.id == 'percent') percent();
-
             else if(button.id == 'mrc') memRecall();
             else if(button.id == 'mplus') memPlus();
             else if(button.id == 'mminus') memMinus();
         }
+        //Prevents execution of double operand commands.
         else if(button.classList.contains('operand')){
+            if (!operandEnabled) return;
+            operandEnabled = false;
+            displayConcatAllowed = true;
             doMath(button.id);
         }
         //Prevents user entry of double decimals.
         else if(button.id !== 'dec' || !display.includes('.')){
+            //Starts over after an '=' operation.
+            if(!displayConcatAllowed){
+                display = '';
+                displayConcatAllowed = true;
+            }
             if(display == '0' && button.id !== 'dec') display = '';
             display += button.innerText;
             updateDisplay();
+            operandEnabled = true;
         }
     });
 });
@@ -88,6 +101,8 @@ function doMath(operand = ''){
         updateDisplay();
         if(operand == 'eq'){
             storedOperand = '';
+            operandEnabled = true;
+            displayConcatAllowed = false;
         }
         else{
             storedOperand = operand;
@@ -122,6 +137,8 @@ function negative() {
 function clear() {
     storedDisplay = '';
     storedOperand = '';
+    operandEnabled = true;
+    displayConcatAllowed = true;
     display = '0';
     updateDisplay();
 }
