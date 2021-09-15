@@ -10,7 +10,7 @@
 
 @media screen and (orientation:portrait){
     :root {
-        --relative-size: 90vw;
+        --relative-size: 85vw;
         --relative-font: 36pt;
     }
 }
