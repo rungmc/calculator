@@ -107,12 +107,12 @@ button:hover {
     transition: 0.3s;
 }
 
-.onoff {
-    background-color: #8f4566;
+.operator, .operand {
+    background-color: #09161e;
 }
 
-.operator {
-    background-color: #09161e;
+.onoff {
+    background-color: #8f4566;
 }
 
 .number {
