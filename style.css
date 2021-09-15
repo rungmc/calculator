@@ -4,25 +4,32 @@
 }
 
 :root {
-    --relative-size: 60vh;
+    --relative-size: 65vh;
+    --relative-font: 16pt;
 }
 
 @media screen and (orientation:portrait){
     :root {
-        --relative-size: 60vw;
+        --relative-size: 90vw;
+        --relative-font: 36pt;
     }
 }
 
 body {
     font-family: 'Oswald', sans-serif;
-    font-size: 16pt;
-    padding: 15px;
+    font-size: var(--relative-font);
     background-color: #555;
+}
+
+#flex-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #calculator {
     display: flex;
-    margin: auto;
     width: var(--relative-size);
     padding: 5px;
     flex-direction: column;
