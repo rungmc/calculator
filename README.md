@@ -1,5 +1,7 @@
 # The Odin Project - Calculator
 
+View the live project [here](https://rungmc.github.io/calculator/).
+
 ## Goal
 
 To create a functioning old-school-style calculator using combined knowledge of HTML/CSS/JS.
