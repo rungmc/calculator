@@ -51,10 +51,10 @@ function updateDisplay() {
     let formattedDisplay = display;
 
     //Trims trailing zeroes after decimal for readability.
-    if(formattedDisplay.includes('.')){
+    if(formattedDisplay.includes('.') && !formattedDisplay.includes('e')){
         while(formattedDisplay.endsWith('0') || formattedDisplay.endsWith('.'))
             formattedDisplay = formattedDisplay.slice(0, -1);
-    }
+    } console.log(formattedDisplay);
 
     //Truncates decimals or uses scientific notation if number is too long for display.
     if(formattedDisplay.length > 10){
@@ -62,7 +62,7 @@ function updateDisplay() {
             formattedDisplay = formattedDisplay.substring(0,9) + '...';
         else formattedDisplay = (parseFloat(formattedDisplay).toExponential(6)).toString();
     }
-    displayScreen.innerText = formattedDisplay;
+    displayScreen.innerText = formattedDisplay; console.log(formattedDisplay);
 }
 
 updateDisplay();
